@@ -1,0 +1,19 @@
+##install ngmlr
+module load  intel-cc/16.0.3.210  intel-fc/16.0.3.210 gcc/4.9.0 zlib/1.2.8 cmake/3.6.2
+mkdir -p myapps/ngmlr/0.2.6/
+git clone https://github.com/philres/ngmlr.git
+cd ngmlr
+mkdir -p build
+cd build/
+cmake ..
+make
+###simply use whole path ~/myapps/ngmlr/0.2.6/ngmlr/bin/ngmlr-0.2.6/ngmlr 
+
+
+###minimap
+cd ~/myapps
+mkdir minimap2
+cd minimap2/
+git clone https://github.com/lh3/minimap2
+cd minimap2 && make
+##simply use whole path in script /home/106/rn5305/myapps/minimap2/minimap2/minimap2 

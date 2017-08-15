@@ -1,0 +1,25 @@
+###install nanoplot
+module load python3/3.5.2
+mkdir -p myapps/nanoplot/0.16.2
+export PYTHONPATH=/home/106/rn5305/myapps/nanoplot/0.16.2/lib/python3.5/site-packages
+mkdir -p $PYTHONPATH
+export PATH=/home/106/rn5305/myapps/nanoplot/0.16.2/bin:$PATH
+pip3 install --upgrade pip --prefix /home/106/rn5305/myapps/nanoplot/0.16.2 --ignore-installed
+pip3 install -v --no-binary :all: matplotlib --prefix /home/106/rn5305/myapps/nanoplot/0.16.2/ --ignore-installed
+pip3 install nanoplot --prefix /home/106/rn5305/myapps/nanoplot/0.16.2
+####check if it worked
+NanoPlot -h
+###make module file
+#%Module1.0#####################################################################
+source /opt/Modules/extensions/extensions.tcl
+proc ModulesHelp { } {
+        puts stderr "\tAdds NanoPlot bin directory to the path"
+}
+module-whatis    "nanoplot"
+soft-prereq python3/3.5.2
+soft-prereq intel-mkl/17.0.1.132
+soft-prereq fftw3-mkl/17.0.1.132
+set nanoplotversion 0.16.2
+prepend-path PATH /home/106/rn5305/myapps/nanoplot/0.16.2/bin
+prepend-path PYTHONPATH /home/106/rn5305/myapps/nanoplot/0.16.2/lib/python3.5/site-packages
+
