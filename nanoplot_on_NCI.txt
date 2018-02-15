@@ -18,9 +18,7 @@ proc ModulesHelp { } {
 }
 module-whatis    "nanoplot"
 soft-prereq python3/3.5.2
-soft-prereq intel-mkl/17.0.1.132
-soft-prereq fftw3-mkl/17.0.1.132
-set nanoplotversion 0.16.2
-prepend-path PATH /home/106/rn5305/myapps/nanoplot/0.16.2/bin
-prepend-path PYTHONPATH /home/106/rn5305/myapps/nanoplot/0.16.2/lib/python3.5/site-packages
+set nanoplotversion 1.0.0
+prepend-path PATH home/106/ap5514/myapps/nanoplot/1.0.0/bin
+prepend-path PYTHONPATH /home/106/ap5514/myapps/nanoplot/1.0.0/lib/python3.5/site-packages
 
