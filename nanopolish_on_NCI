@@ -1,7 +1,7 @@
 # install biopython
 module load python3/3.6.2
 mkdir -p /short/sd34/ap5514/myapps/nanopolish/0.9.0
-export PYTHONPATH=/short/sd34/ap5514/myapps/ap5514/myapps/nanopolish/0.9.0/lib/python3.6/site-packages
+export PYTHONPATH=/short/sd34/ap5514/myapps/nanopolish/0.9.0/lib/python3.6/site-packages
 mkdir -p $PYTHONPATH
 export PATH=/short/sd34/ap5514/myapps/nanopolish/0.9.0/bin:$PATH
 pip3 install biopython --upgrade pip --prefix /short/sd34/ap5514/myapps/nanopolish/0.9.0 --ignore-installed
@@ -18,4 +18,4 @@ module load htslib/1.4
 #install nanopolish
 git clone --recursive https://github.com/jts/nanopolish.git
 cd nanopolish
-make --HDF5=noinstall --EIGEN=noinstall --HTS=noinstall
+make HDF5=noinstall EIGEN=noinstall HTS=noinstall
