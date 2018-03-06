@@ -1,0 +1,15 @@
+ # install biopython
+module load python3/3.6.2
+mkdir -p ~/myapps/nanopolish/0.9.0
+export PYTHONPATH=/home/106/ap5514/myapps/nanopolish/0.9.0/lib/python3.6/site-packages
+mkdir -p $PYTHONPATH
+export PATH=/home/106/ap5514/myapps/ nanopolish/0.9.0/bin:$PATH
+pip3 install biopython --upgrade pip --prefix /home/106/rn5305/myapps/nanopolish/0.9.0 --ignore-installed
+
+# install pysam
+pip3 install pysam --upgrade pip --prefix /home/106/rn5305/myapps/nanopolish/0.9.0 --ignore-installed
+
+#install nanopolish
+git clone --recursive https://github.com/jts/nanopolish.git
+cd nanopolish
+make --HDF5=noinstall
