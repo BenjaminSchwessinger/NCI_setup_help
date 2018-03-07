@@ -16,7 +16,33 @@ module load eigen/3.2.8
 module load htslib/1.4
 
 #install nanopolish
-cd /short/sd34/ap5514/myapps/nanopolish/0.9.0/bin/ # make sure nanopolish files are sent to the right folder
+cd /short/sd34/ap5514/myapps/nanopolish/0.9.0/bin/nanopolish # make sure nanopolish files are sent to the right folder
 git clone --recursive https://github.com/jts/nanopolish.git
 cd nanopolish
-make HDF5=noinstall EIGEN=noinstall HTS=noinstall
+make EIGEN=noinstall HTS=noinstall # HDF5=noinstall flag was not used because NCI didn't have threadsafe hdf5 installed
+                                   # used threadsafe hdf5 installed by nanopolish
+                                   
+# write nanopolish module
+cd ~/mymodules
+mkdir nanopolish
+cd nanopolish
+vim 0.9.0
+
+#paste this
+#%Module1.0#####################################################################
+source /opt/Modules/extensions/extensions.tcl
+proc ModulesHelp { } {
+        puts stderr "\tAdds nanopolish bin directory to the path"
+}
+module-whatis    "nanopolish"
+
+soft-prereq python3/3.6.2
+soft-prereq hdf5/1.8.14
+soft-prereq eigen/3.2.8
+soft-prereq htslib/1.4
+soft-prereq minimap2
+
+
+set nanopolishversion 0.9.0
+prepend-path PATH /short/sd34/ap5514/myapps/nanopolish/0.9.0/bin/nanopolish
+prepend-path PYTHONPATH /short/sd34/ap5514/myapps/nanopolish/0.9.0/lib/python3.6/site-packages
