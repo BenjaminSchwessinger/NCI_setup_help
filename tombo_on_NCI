@@ -1,0 +1,8 @@
+mkdir -p /short/sd34/ap5514/myapps/tombo/1.2.1
+cd /short/sd34/ap5514/myapps/tombo/1.2.1
+# install via bioconda environment
+conda install -c bioconda ont-tombo
+
+# or install pip package (numpy install required before tombo for cython optimization)
+pip install numpy
+pip install ont-tombo[full]
