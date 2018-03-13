@@ -24,6 +24,7 @@ module-whatis    "tombo"
 
 soft-prereq python3/3.5.2
 soft-prereq python3/3.5.2-matplotlib
+soft-prereq R/3.4.0
 
 
 set tomboversion 1.2.1
