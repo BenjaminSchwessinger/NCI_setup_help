@@ -1,8 +1,31 @@
+
+#load python modules to load numpy
+module load python3/3.5.2
+module load python3/3.5.2-matplotlib
+module load R/3.4.0
+
+# make and call directory to install Tombo
 mkdir -p /short/sd34/ap5514/myapps/tombo/1.2.1
 cd /short/sd34/ap5514/myapps/tombo/1.2.1
-# install via bioconda environment
-conda install -c bioconda ont-tombo
 
-# or install pip package (numpy install required before tombo for cython optimization)
-pip install numpy
-pip install ont-tombo[full]
+# Install pip package (numpy install required before tombo for cython optimization) and upgrade pip to environment
+pip3 install ont-tombo[full]
+pip3 install ont-tombo[full] --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1 --ignore-installed
+
+
+
+#paste this to make module
+#%Module1.0#####################################################################
+source /opt/Modules/extensions/extensions.tcl
+proc ModulesHelp { } {
+        puts stderr "\tAdds tombo bin directory to the path"
+}
+module-whatis    "tombo"
+
+soft-prereq python3/3.5.2
+soft-prereq python3/3.5.2-matplotlib
+
+
+set tomboversion 1.2.1
+prepend-path PATH /short/sd34/ap5514/myapps/tombo/1.2.1/bin/tombo
+prepend-path PYTHONPATH /short/sd34/ap5514/myapps/tombo/1.2.1/lib/python3.5/site-packages
