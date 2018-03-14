@@ -28,5 +28,5 @@ soft-prereq R/3.4.0
 
 
 set tomboversion 1.2.1
-prepend-path PATH /short/sd34/ap5514/myapps/tombo/1.2.1/bin/tombo
+prepend-path PATH /short/sd34/ap5514/myapps/tombo/1.2.1/bin/
 prepend-path PYTHONPATH /short/sd34/ap5514/myapps/tombo/1.2.1/lib/python3.5/site-packages
