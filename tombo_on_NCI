@@ -12,7 +12,20 @@ cd /short/sd34/ap5514/myapps/tombo/1.2.1
 pip3 install ont-tombo[full]
 pip3 install ont-tombo[full] --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1 --ignore-installed
 
+# Install python requirements
+pip3 install numpy --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/lib/python3.5/site-packages --ignore-installed
+pip3 install scipy --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/lib/python3.5/site-packages --ignore-installed
+pip3 install h5py --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/lib/python3.5/site-packages --ignore-installed
+pip3 install cython --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/lib/python3.5/site-packages --ignore-installed
+pip3 install mappy --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/lib/python3.5/site-packages --ignore-installed
+pip3 install pyfaidx --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/lib/python3.5/site-packages --ignore-installed
 
+
+# Install R requirements
+module load R/3.4.0
+install.packages("ggplot2")
+install.packages("rpy2")
+install.packages("gridExtra")
 
 #paste this to make module
 #%Module1.0#####################################################################
