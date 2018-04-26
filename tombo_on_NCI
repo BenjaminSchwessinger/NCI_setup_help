@@ -14,12 +14,12 @@ pip3 install ont-tombo[full] --upgrade pip --prefix /short/sd34/ap5514/myapps/to
 
 # Install python requirements
 module load python3/3.5.2
-pip3 install numpy --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/lib/python3.5/site-packages --ignore-installed
-pip3 install scipy --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/lib/python3.5/site-packages --ignore-installed
-pip3 install h5py --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/lib/python3.5/site-packages --ignore-installed
-pip3 install cython --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/lib/python3.5/site-packages --ignore-installed
-pip3 install mappy --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/lib/python3.5/site-packages --ignore-installed
-pip3 install pyfaidx --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/lib/python3.5/site-packages --ignore-installed
+pip3 install numpy --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/ --ignore-installed
+pip3 install scipy --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/ --ignore-installed
+pip3 install h5py --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/ --ignore-installed
+pip3 install cython --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/ --ignore-installed
+pip3 install mappy --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/ --ignore-installed
+pip3 install pyfaidx --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/ --ignore-installed
 
 
 # Install R requirements
