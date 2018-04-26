@@ -13,6 +13,7 @@ pip3 install ont-tombo[full]
 pip3 install ont-tombo[full] --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1 --ignore-installed
 
 # Install python requirements
+module load python3/3.5.2
 pip3 install numpy --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/lib/python3.5/site-packages --ignore-installed
 pip3 install scipy --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/lib/python3.5/site-packages --ignore-installed
 pip3 install h5py --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/lib/python3.5/site-packages --ignore-installed
@@ -24,7 +25,7 @@ pip3 install pyfaidx --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.
 # Install R requirements
 module load R/3.4.0
 install.packages("ggplot2")
-install.packages("rpy2")
+install.packages("rpy2")        # could not be installed, as rpy2 is unavailable for R/3.4.0 and R/3.4.3
 install.packages("gridExtra")
 
 #paste this to make module
