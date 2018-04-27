@@ -1,3 +1,4 @@
+### may need to reinstall everything for python 2.7, mCaller doesn't run on python3
 #load python modules to load numpy
 module load python3/3.5.2
 module load python3/3.5.2-matplotlib
@@ -16,35 +17,25 @@ pip3 install ont-tombo[full] --upgrade pip --prefix /short/sd34/ap5514/myapps/to
 # Modules already installed: numpy, scipy, h5py, biopython, matplotlib
 module load python3/3.5.2
 pip3 install scikit-learn --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/ --ignore-installed
-pip3 install scipy --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/ --ignore-installed
-pip3 install h5py --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/ --ignore-installed
-pip3 install cython --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/ --ignore-installed
-pip3 install mappy --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/ --ignore-installed
-pip3 install pyfaidx --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/ --ignore-installed
-
-
-# Install R requirements
-module load R/3.4.0
-install.packages("ggplot2")
-install.packages("rpy2")        # could not be installed, as rpy2 is unavailable for R/3.4.0 and R/3.4.3
-install.packages("gridExtra")
+pip3 install seaborn --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/ --ignore-installed
+pip3 install pysam --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/ --ignore-installed
+pip3 install pandas --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/ --ignore-installed
 
 #paste this to make module
 #%Module1.0#####################################################################
 source /opt/Modules/extensions/extensions.tcl
 proc ModulesHelp { } {
-        puts stderr "\tAdds tombo bin directory to the path"
+        puts stderr "\tAdds mCaller bin directory to the path"
 }
-module-whatis    "tombo"
+module-whatis    "mcaller"
 
 soft-prereq python3/3.5.2
 soft-prereq python3/3.5.2-matplotlib
 soft-prereq biopython/1.66
-soft-prereq minimap2 ###edit a lot
-soft-prereq nanopolish ###edit a lot
-soft-prereq R/3.4.0
+soft-prereq minimap2
+soft-prereq nanopolish
 
 
-set tomboversion 1.2.1
+set mcallerversion 1.2.1
 prepend-path PATH /short/sd34/ap5514/myapps/tombo/1.2.1/bin/
 prepend-path PYTHONPATH /short/sd34/ap5514/myapps/tombo/1.2.1/lib/python3.5/site-packages
