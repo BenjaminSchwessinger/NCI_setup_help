@@ -1,0 +1,50 @@
+#load python modules to load numpy
+module load python3/3.5.2
+module load python3/3.5.2-matplotlib
+module load R/3.4.0
+
+# make and call directory to install Tombo
+mkdir -p /short/sd34/ap5514/myapps/tombo/1.2.1
+cd /short/sd34/ap5514/myapps/tombo/1.2.1
+
+# Install pip package (numpy install required before tombo for cython optimization) and upgrade pip to environment
+pip3 install ont-tombo[full]
+pip3 install ont-tombo[full] --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1 --ignore-installed
+
+# Install python requirements
+# Some requirements are already installed for tombo, so just install in the tombo directory and link to that in the module file.
+# Modules already installed: numpy, scipy, h5py, biopython, matplotlib
+module load python3/3.5.2
+pip3 install scikit-learn --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/ --ignore-installed
+pip3 install scipy --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/ --ignore-installed
+pip3 install h5py --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/ --ignore-installed
+pip3 install cython --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/ --ignore-installed
+pip3 install mappy --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/ --ignore-installed
+pip3 install pyfaidx --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/ --ignore-installed
+
+
+# Install R requirements
+module load R/3.4.0
+install.packages("ggplot2")
+install.packages("rpy2")        # could not be installed, as rpy2 is unavailable for R/3.4.0 and R/3.4.3
+install.packages("gridExtra")
+
+#paste this to make module
+#%Module1.0#####################################################################
+source /opt/Modules/extensions/extensions.tcl
+proc ModulesHelp { } {
+        puts stderr "\tAdds tombo bin directory to the path"
+}
+module-whatis    "tombo"
+
+soft-prereq python3/3.5.2
+soft-prereq python3/3.5.2-matplotlib
+soft-prereq biopython/1.66
+soft-prereq minimap2 ###edit a lot
+soft-prereq nanopolish ###edit a lot
+soft-prereq R/3.4.0
+
+
+set tomboversion 1.2.1
+prepend-path PATH /short/sd34/ap5514/myapps/tombo/1.2.1/bin/
+prepend-path PYTHONPATH /short/sd34/ap5514/myapps/tombo/1.2.1/lib/python3.5/site-packages
