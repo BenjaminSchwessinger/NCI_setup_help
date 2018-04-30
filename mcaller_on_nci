@@ -39,7 +39,7 @@ soft-prereq minimap2
 soft-prereq nanopolish
 
 
-set mcallerversion 1.2.1
+#set mcallerversion 1.2.1 #no version yet
 prepend-path PATH /short/sd34/ap5514/myapps/mcaller/mCaller/mCaller.py
 prepend-path PATH /short/sd34/ap5514/myapps/mcaller/mCaller/make_bed.py
 prepend-path PYTHONPATH /short/sd34/ap5514/myapps/tombo/1.2.1/lib/python3.5/site-packages
