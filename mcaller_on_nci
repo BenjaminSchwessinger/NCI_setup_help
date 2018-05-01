@@ -1,12 +1,14 @@
 ### may need to reinstall everything for python 2.7, mCaller doesn't run on python3
 
 # load python modules
-module load python3/3.5.2
-module load python3/3.5.2-matplotlib
+module load python3/3.6.2
+#module load python3/3.5.2-matplotlib
 
-# make and call directory to install Tombo
+# make and call directory to install mcaller
 mkdir -p /short/sd34/ap5514/myapps/mcaller/
 cd /short/sd34/ap5514/myapps/mcaller/
+export PYTHONPATH=/short/sd34/ap5514/myapps/mcaller/lib/python3.6/site-packages
+mkdir -p $PYTHONPATH
 
 # Install
 git clone git@github.com:AnjuniPeiris/mCaller.git
@@ -18,11 +20,16 @@ rm -rf testdata
 # Install python requirements
 # Some requirements are already installed for tombo, so just install in the tombo directory and link to that in the module file.
 # Modules already installed: numpy, scipy, h5py, biopython, matplotlib
-module load python3/3.5.2
-pip3 install scikit-learn --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/ --ignore-installed
-pip3 install seaborn --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/ --ignore-installed
-pip3 install pysam --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/ --ignore-installed
-pip3 install pandas --upgrade pip --prefix /short/sd34/ap5514/myapps/tombo/1.2.1/ --ignore-installed
+module load python3/3.6.2
+pip3 install scikit-learn --upgrade pip --prefix /short/sd34/ap5514/myapps/mcaller/ --ignore-installed
+python3 -m pip install h5py --upgrade pip --prefix /short/sd34/ap5514/myapps/mcaller/ --ignore-installed
+python3 -m pip install matplotlib --upgrade pip --prefix /short/sd34/ap5514/myapps/mcaller/ --ignore-installed
+python3 -m pip install seaborn --upgrade pip --prefix /short/sd34/ap5514/myapps/mcaller/ --ignore-installed
+python3 -m pip install numpy --upgrade pip --prefix /short/sd34/ap5514/myapps/mcaller/ --ignore-installed
+python3 -m pip install pysam --upgrade pip --prefix /short/sd34/ap5514/myapps/mcaller/ --ignore-installed
+python3 -m pip install scipy --upgrade pip --prefix /short/sd34/ap5514/myapps/mcaller/ --ignore-installed
+python3 -m pip install pandas --upgrade pip --prefix /short/sd34/ap5514/myapps/mcaller/ --ignore-installed
+
 
 #paste this to make module
 #%Module1.0#####################################################################
@@ -32,8 +39,8 @@ proc ModulesHelp { } {
 }
 module-whatis    "mcaller"
 
-soft-prereq python3/3.5.2
-soft-prereq python3/3.5.2-matplotlib
+soft-prereq python3/3.6.2
+soft-prereq python3/3.6.2-matplotlib
 soft-prereq biopython/1.66
 soft-prereq minimap2
 soft-prereq nanopolish
@@ -42,4 +49,4 @@ soft-prereq nanopolish
 #set mcallerversion 1.2.1 #no version yet
 prepend-path PATH /short/sd34/ap5514/myapps/mcaller/mCaller/mCaller.py
 prepend-path PATH /short/sd34/ap5514/myapps/mcaller/mCaller/make_bed.py
-prepend-path PYTHONPATH /short/sd34/ap5514/myapps/tombo/1.2.1/lib/python3.5/site-packages
+prepend-path PYTHONPATH /short/sd34/ap5514/myapps/mcaller/lib/python3.6/site-packages
