@@ -109,7 +109,6 @@ module-whatis    "mcaller2"
 
 soft-prereq python/2.7.5
 soft-prereq python/2.7.5-matplotlib
-soft-prereq biopython/1.66
 soft-prereq minimap2
 soft-prereq nanopolish
 
