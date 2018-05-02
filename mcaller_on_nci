@@ -5,24 +5,33 @@ module load python/2.7.5
 mkdir -p /short/sd34/ap5514/myapps/nanopolish/0.9.0_mc
 export PYTHONPATH=/short/sd34/ap5514/myapps/nanopolish/0.9.0_mc/lib/python2.7/site-packages
 mkdir -p $PYTHONPATH
-export PATH=/short/sd34/ap5514/myapps/nanopolish/0.9.0_mc/bin:$PATH
-pip3 install biopython --upgrade pip --prefix /short/sd34/ap5514/myapps/nanopolish/0.9.0_mc --ignore-installed
+export PATH=/short/sd34/ap5514/myapps/nanopolish/0.9.0_mc/bin:$PATH           #maybe change path to include pip
+
+#install pip for nanopolish
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python get-pip.py --prefix=/short/sd34/ap5514/myapps/nanopolish/0.9.0_mc
+pip install requests[security] --prefix /short/sd34/ap5514/myapps/nanopolish/0.9.0_mc     #error installing pycpurser
+pip install biopython --upgrade pip --prefix /short/sd34/ap5514/myapps/nanopolish/0.9.0_mc --ignore-installed
 
 # install pysam
-pip3 install pysam --upgrade pip --prefix /short/sd34/ap5514/myapps/nanopolish/0.9.0_mc --ignore-installed
+pip install pysam --upgrade pip --prefix /short/sd34/ap5514/myapps/nanopolish/0.9.0_mc --ignore-installed
 
 #load all the required modules incluing gcc-4.8+ and eigen and hdf5 and hts
 module load gcc/4.9.0
-module load hdf5/1.8.14p --enable-threadsafe
+module load hdf5/1.8.14p #--enable-threadsafe
 module load eigen/3.2.8
 module load htslib/1.4
 
 #install nanopolish
+mkdir /short/sd34/ap5514/myapps/nanopolish/0.9.0_mc/bin/nanopolish
 cd /short/sd34/ap5514/myapps/nanopolish/0.9.0_mc/bin/nanopolish # make sure nanopolish files are sent to the right folder
 git clone --recursive https://github.com/jts/nanopolish.git
 cd nanopolish
 make EIGEN=noinstall HTS=noinstall # HDF5=noinstall flag was not used because NCI didn't have threadsafe hdf5 installed
                                    # used threadsafe hdf5 installed by nanopolish
+                                   
+      # many "warning: will never be executed" messages during "make" for installing nanopolish prereqs
+"cannot optimise loop, the loop counter may overflow"
                                    
 # write nanopolish module
 cd ~/mymodules
@@ -55,13 +64,15 @@ prepend-path PYTHONPATH /short/sd34/ap5514/myapps/nanopolish/0.9.0_mc/lib/python
 
 # load python modules
 module load python/2.7.5
-#module load python/2.7.5-matplotlib
+module load python/2.7.5-matplotlib
 
 # make and call directory to install mcaller
 mkdir -p /short/sd34/ap5514/myapps/mcaller2/
 cd /short/sd34/ap5514/myapps/mcaller2/
 export PYTHONPATH=/short/sd34/ap5514/myapps/mcaller2/lib/python2.7/site-packages
 mkdir -p $PYTHONPATH
+export PATH=/short/sd34/ap5514/myapps/mcaller2/bin:$PATH
+mkdir -p $PATH
 
 # Install
 git clone git@github.com:AnjuniPeiris/mCaller.git
@@ -70,16 +81,22 @@ git clone git@github.com:AnjuniPeiris/mCaller.git
 rm -rf bioRxiv/
 rm -rf testdata
 
+#install pip for mcaller
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python get-pip.py --prefix=/short/sd34/ap5514/myapps/mcaller2
+pip install requests[security] --prefix /short/sd34/ap5514/myapps/mcaller2     #error installing pycpurser
+
+
 # Install python requirements
 module load python/2.7.5
-python3 -m pip install scikit-learn --upgrade pip --prefix /short/sd34/ap5514/myapps/mcaller/ --ignore-installed
-python3 -m pip install h5py --upgrade pip --prefix /short/sd34/ap5514/myapps/mcaller/ --ignore-installed
-python3 -m pip install matplotlib --upgrade pip --prefix /short/sd34/ap5514/myapps/mcaller/ --ignore-installed
-python3 -m pip install seaborn --upgrade pip --prefix /short/sd34/ap5514/myapps/mcaller/ --ignore-installed
-python3 -m pip install numpy --upgrade pip --prefix /short/sd34/ap5514/myapps/mcaller/ --ignore-installed
-python3 -m pip install pysam --upgrade pip --prefix /short/sd34/ap5514/myapps/mcaller/ --ignore-installed
-python3 -m pip install scipy --upgrade pip --prefix /short/sd34/ap5514/myapps/mcaller/ --ignore-installed
-python3 -m pip install pandas --upgrade pip --prefix /short/sd34/ap5514/myapps/mcaller/ --ignore-installed
+python -m pip install scikit-learn --upgrade pip --prefix /short/sd34/ap5514/myapps/mcaller2/ --ignore-installed
+python -m pip install h5py --upgrade pip --prefix /short/sd34/ap5514/myapps/mcaller2/ --ignore-installed
+#python -m pip install matplotlib --upgrade pip --prefix /short/sd34/ap5514/myapps/mcaller2/ --ignore-installed
+python -m pip install seaborn --upgrade pip --prefix /short/sd34/ap5514/myapps/mcaller2/ --ignore-installed # DID NOT WORK
+python -m pip install numpy --upgrade pip --prefix /short/sd34/ap5514/myapps/mcaller2/ --ignore-installed
+python -m pip install pysam --upgrade pip --prefix /short/sd34/ap5514/myapps/mcaller2/ --ignore-installed
+python -m pip install scipy --upgrade pip --prefix /short/sd34/ap5514/myapps/mcaller2/ --ignore-installed
+python -m pip install pandas --upgrade pip --prefix /short/sd34/ap5514/myapps/mcaller2/ --ignore-installed #DID NOT WORK
 
 
 #paste this to make module
@@ -100,4 +117,4 @@ soft-prereq nanopolish
 #set mcallerversion 1.2.1 #no version yet
 prepend-path PATH /short/sd34/ap5514/myapps/mcaller/mCaller/mCaller.py
 prepend-path PATH /short/sd34/ap5514/myapps/mcaller/mCaller/make_bed.py
-prepend-path PYTHONPATH /short/sd34/ap5514/myapps/mcaller/lib/python3.6/site-packages
+prepend-path PYTHONPATH /short/sd34/ap5514/myapps/mcaller/lib/python2.7/site-packages
