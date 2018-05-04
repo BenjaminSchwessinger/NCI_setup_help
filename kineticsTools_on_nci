@@ -1,41 +1,39 @@
 #install kineticsTools
 
+
 # load python modules
-module load python3/3.6.2
+module load python/2.7.6
 
 # install pbcore
 mkdir -p /short/sd34/ap5514/myapps/pbcore
 cd /short/sd34/ap5514/myapps/myapps/pbcore
-export PYTHONPATH=/short/sd34/ap5514/myapps/pbcore/lib/python3.6/site-packages
+export PYTHONPATH=/short/sd34/ap5514/myapps/pbcore/lib/python2.7/site-packages
 mkdir -p $PYTHONPATH
 export PATH=/short/sd34/ap5514/myapps/pbcore/bin:$PATH
 mkdir -p $PATH
-pip install -r requirements.txt
+pip install -r requirements.txt --prefix /short/sd34/ap5514/myapps/pbcore --ignore-installed
 python setup.py install
-pip install h5py
+pip install h5py --prefix /short/sd34/ap5514/myapps/pbcore --ignore-installed
 
 #paste this to make module
 #%Module1.0#####################################################################
 source /opt/Modules/extensions/extensions.tcl
 proc ModulesHelp { } {
-        puts stderr "\tAdds kineticsTools bin directory to the path"
+        puts stderr "\tAdds pbcore bin directory to the path"
 }
-module-whatis    "kineticstools"
+module-whatis    "pbcore"
 
-soft-prereq python3/3.6.2
-soft-prereq 
-soft-prereq 
+soft-prereq python/2.7.6
 
-
-#set kineticsToolsversion 1.2.1 #no version yet
+#set pbcoreversion 1.2.1 #no version yet
 prepend-path PATH /short/sd34/ap5514/myapps/kineticsTools/
-prepend-path PYTHONPATH /short/sd34/ap5514/myapps/kineticsTools/lib/python3.6/site-packages
+prepend-path PYTHONPATH /short/sd34/ap5514/myapps/kineticsTools/lib/python2.7/site-packages
 
 
 # make and call directory to install kineticsTools
 mkdir -p /short/sd34/ap5514/myapps/kineticsTools
 cd /short/sd34/ap5514/myapps/myapps/kineticsTools
-export PYTHONPATH=/short/sd34/ap5514/myapps/kineticsTools/lib/python3.6/site-packages
+export PYTHONPATH=/short/sd34/ap5514/myapps/kineticsTools/lib/python2.7/site-packages
 mkdir -p $PYTHONPATH
 export PATH=/short/sd34/ap5514/myapps/kineticsTools/bin:$PATH
 mkdir -p $PATH
@@ -45,7 +43,7 @@ git clone https://github.com/PacificBiosciences/kineticsTools
 python setup.py install
 
 # Install python requirements
-module load python3/3.6.2
+module load python/2.7.6
 python -m pip install h5py --upgrade pip --prefix /short/sd34/ap5514/myapps/kineticsTools --ignore-installed
 python -m pip install numpy --upgrade pip --prefix /short/sd34/ap5514/myapps/kineticsTools --ignore-installed
 python -m pip install scipy --upgrade pip --prefix /short/sd34/ap5514/myapps/kineticsTools --ignore-installed
@@ -59,11 +57,11 @@ proc ModulesHelp { } {
 }
 module-whatis    "kineticstools"
 
-soft-prereq python3/3.6.2
+soft-prereq python/2.7.6
 soft-prereq pbcore
 soft-prereq 
 
 
 #set kineticsToolsversion 1.2.1 #no version yet
 prepend-path PATH /short/sd34/ap5514/myapps/kineticsTools/
-prepend-path PYTHONPATH /short/sd34/ap5514/myapps/kineticsTools/lib/python3.6/site-packages
+prepend-path PYTHONPATH /short/sd34/ap5514/myapps/kineticsTools/lib/python2.7/site-packages
