@@ -120,3 +120,24 @@ Detected the following settings:
       PBS_BINDIR        (from 'PATH environment variable, default')
       PBS_QUEUE         (from 'default')
       PBS_STARTARGS     (from 'default')
+
+#write a module file
+
+cd ~/mymodules/
+mkdir smrtlink
+cd smrtlink/
+vim 5.1.0
+
+#paste this to make module
+#%Module1.0#####################################################################
+source /opt/Modules/extensions/extensions.tcl
+proc ModulesHelp { } {
+        puts stderr "\tAdds smrtlink bin directory to the path"
+}
+module-whatis    "smrtlink"
+
+#soft-prereq python/2.7.6
+
+#set kineticsToolsversion 1.2.1 #no version yet
+prepend-path PATH /short/sd34/ap5514/myapps/smrtlink/5.1.0/install/smrtlink-release_5.1.0.26412/bundles/smrttools/smrtcmds/bin
+#prepend-path PYTHONPATH /short/sd34/ap5514/myapps/kineticsTools/lib/python2.7/site-packages
