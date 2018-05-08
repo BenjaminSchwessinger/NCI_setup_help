@@ -1,0 +1,28 @@
+#installation for smrtpipe on nci
+
+mkdir -p /short/sd34/ap5514/myapps/smrtlink/5.1.0/smrtcmds/bin/graphviz/2.40.1
+export PYTHONPATH=/short/sd34/ap5514/myapps/smrtlink/5.1.0/smrtcmds/bin/graphviz/2.40.1/lib/python2.7/site-packages
+mkdir -p $PYTHONPATH
+export PATH=/short/sd34/ap5514/myapps/smrtlink/5.1.0/smrtcmds/bin/graphviz:$PATH
+cd $PATH
+
+#install graphviz requirement, so dot is added to the smrtcmds directory in smrtlink
+wget https://graphviz.gitlab.io/pub/graphviz/stable/SOURCES/graphviz.tar.gz
+wget https://graphviz.gitlab.io/pub/graphviz/stable/SOURCES/graphviz.tar.gz.md5
+
+#check if md5sum are the same
+md5sum -c graphviz.tar.gz.md5
+
+#install smrtpipe
+cd /short/sd34/ap5514/myapps/smrtlink/5.1.0/smrtcmds/bin
+export PATH=/short/sd34/ap5514/myapps/smrtlink/5.1.0/smrtcmds/bin:$PATH
+export PYTHONPATH=/short/sd34/ap5514/myapps/smrtlink/5.1.0/smrtcmds/bin
+git clone https://github.com/PacificBiosciences/pbsmrtpipe.git
+cd pbsmrtpipe
+# this will install pbcore and pbcommand
+pip install -r PB_REQUIREMENTS.txt # this will install pbcommand and pbcore from master on github
+pip install -r REQUIREMENTS.txt # will install from pypi
+pip install .
+pbsmrtpipe --help
+
+python -m pip --prefix
