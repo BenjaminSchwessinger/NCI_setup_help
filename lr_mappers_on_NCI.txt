@@ -18,5 +18,11 @@ git clone https://github.com/lh3/minimap2
 cd minimap2/ && make
 ##simply use whole path in script /home/106/rn5305/myapps/minimap2/minimap2/minimap2 
 
-
-#%Module1.0#####################################################################                                                            source /opt/Modules/extensions/extensions.tcl                                                                                               proc ModulesHelp { } {                                                                                                                              puts stderr "\tAdds minimap2 bin directory to the path"                                                                             }                                                                                                                                          module-whatis    "minimap2"                                                                                                                 set minimap2version 2.8                                                                                                                     prepend-path PATH /home/106/ap5514/myapps/minimap2/v2.7/minimap2                                                                           
+#%Module1.0#####################################################################
+source /opt/Modules/extensions/extensions.tcl
+proc ModulesHelp { } {
+        puts stderr "\tAdds minimap2 bin directory to the path"
+} 
+module-whatis    "minimap2"
+set minimap2version 2.8
+prepend-path PATH /home/106/ap5514/myapps/minimap2/v2.7/minimap2
