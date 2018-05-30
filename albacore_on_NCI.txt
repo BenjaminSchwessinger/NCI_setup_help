@@ -1,41 +1,30 @@
 #####make sure no compiler modules are loaded initially
-mkdir -p $HOME/myapps/albacore/1.2.6  ###change 1.1.0 to reflect the version of albacore software
+mkdir -p $HOME/myapps/albacore/2.1.10  ###change 1.1.0 to reflect the version of albacore software
 mkdir $HOME/mypackages
 cd $HOME/mypackages
 wget https://mirror.oxfordnanoportal.com/software/analysis/ont_albacore-1.2.6-cp35-cp35m-manylinux1_x86_64.whl
-#now download latest numpy if required
-wget https://pypi.python.org/packages/c0/3a/40967d9f5675fbb097ffec170f59c2ba19fc96373e73ad47c2cae9a30aed/numpy-1.13.1.zip
-unzip numpy-1.13.1.zip
-cd numpy-1.13.1
-cp site.cfg.example site.cfg
-###########
-edit site.cfg:
-[mkl]
-library_dirs = /apps/intel-ct/17.0.1.132/mkl/lib/intel64/
-include_dirs = /apps/intel-ct/17.0.1.132/mkl/include
-mkl_libs = mkl_rt
-lapack_libs =
 
-[fftw]
-library_dirs = /apps/fftw3-mkl/17.0.1.132/lib
-include_dirs = /apps/intel-ct/17.0.1.132/mkl/include/fftw
-libraries = fftw3xc_intel
-###########
-mkdir -p $HOME/myapps/albacore/1.2.6
-export PYTHONPATH=$HOME/myapps/albacore/1.2.6/lib/python3.5/site-packages
+cd $HOME/myapps/albacore/2.1.10
+export PYTHONPATH=$HOME/myapps/albacore/2.1.10/lib/python3.6/site-packages
+
 #now load python3
-module load python3/3.5.2
-pip3 install --upgrade pip --prefix $HOME/myapps/albacore/1.2.6 --ignore-installed
-export PATH=/home/106/rn5305/myapps/albacore/1.2.6/bin/:$PATH
-python3 setup.py install --prefix=$HOME/myapps/albacore/1.2.6/
+module load python3/3.6.2
+
+pip3 install --upgrade pip --prefix home/106/ap5514/myapps/albacore/2.1.10 --ignore-installed
+export PATH=/home/106/ap5514/myapps/albacore/2.1.10/bin/:$PATH
+cd mypackages
 module load intel-mkl/17.0.1.132
 module load fftw3-mkl/17.0.1.132
-pip3 install ont_albacore-1.2.6-cp35-cp35m-manylinux1_x86_64.whl --prefix $HOME/myapps/albacore/1.2.6/
+pip3 install ont_albacore-2.1.10-cp36-cp36m-manylinux1_x86_64.whl --prefix home/106/ap5514/myapps/albacore/2.1.10/ --ignore-installed
+
 ###check if all looks good
 read_fast5_basecaller.py -h
+
 ####now make a module out of it
+cd ~
 mkdir -p $HOME/mymodules/albacore
-vim $HOME/mymodules/albacore/1.2.6
+vim /home/106/ap5514/mymodules/albacore/2.1.10
+
 #%Module1.0#####################################################################
 source /opt/Modules/extensions/extensions.tcl
 proc ModulesHelp { } {
@@ -43,8 +32,7 @@ proc ModulesHelp { } {
 }
 module-whatis    "albacore"
 soft-prereq python3/3.5.2
-soft-prereq intel-mkl/17.0.1.132
-soft-prereq fftw3-mkl/17.0.1.132
+
 set albacoreversion 1.2.6
 prepend-path PATH /home/106/rn5305/myapps/albacore/1.2.6/bin
 prepend-path PYTHONPATH /home/106/rn5305/myapps/albacore/1.2.6/lib/python3.5/site-packages
