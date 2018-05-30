@@ -1,0 +1,143 @@
+module load python 3.6.2
+
+mkdir -p /short/sd34/ap5514/myapps/smrtlink/5.1.0
+export PYTHONPATH=/short/sd34/ap5514/myapps/smrtlink/5.1.0/lib/python3.6/site-packages
+mkdir -p $PYTHONPATH
+export PATH=/short/sd34/ap5514/myapps/smrtlink/5.1.0/bin:$PATH
+cd /short/sd34/ap5514/myapps/smrtlink/5.1.0
+
+wget https://downloads.pacbcloud.com/public/software/installers/smrtlink_5.1.0.26412.zip
+unzip smrtlink_5.1.0.26412.zip
+#enter unzip password from website
+
+#enter root directory
+
+
+SMRT_ROOT=/short/sd34/ap5514/myapps/smrtlink/5.1.0
+smrtlink_5.1.0.26412.run --rootdir $SMRT_ROOT
+----- Part 1 of 10: SMRT Analysis User ----
+
+It is recommended to run this script as a designated SMRT Analysis
+user (e.g. smrtanalysis) who will own all smrtpipe jobs and daemon
+processes.
+
+Current user is 'ap5514' (primary group: sd34)
+
+Use the 'ap5514' as the SMRT Analysis user? [Y/n]: y
+
+Using install user (computed): ap5514
+Using install group (computed): sd34
+Using smrtlink uuid (computed default): f3b0ec25-8db7-4adf-92fd-2762e40985c6
+
+
+----- Part 2 of 10: SMRT Link Server DNS -----
+
+The DNS name of the SMRT Link host server is used for creating SMRT
+Link URLs (e.g. http://smrtlink.example.com:9090), ensuring
+an SSL certificate will validate.  If the Domain Name System (DNS)
+does not resolve to the expected address, then an IP address must
+be used.
+
+Detecting DNS names...
+
+----- Part 3 of 10: SMRT Link Setup  ----
+
+SMRT Link requires two ports for proper operation. These ports cannot
+be used for listening by any other processes.  The SMRT Link GUI port
+serves to redirect from an unencrypted http connection to the login
+page using secure https.
+
+  Enter the SMRT Link GUI (http) port [9090]: 9090
+  Enter the SMRT Link Services port [9091]: 9091
+
+Memory settings must be preset for SMRT Link.  By default, we set the
+initial (-Xms) and maximum (-Xmx) Java heap sizes to the same values.
+The default for SMRT Link services is 25% of the total memory with a
+maximum of 32768 MB.  The default for SMRT Link GUI is 5% of the total
+memory with a maximum of 8192 MB.  We recommend using the defaults.
+
+  Enter the SMRT Link Services initial memory (in MB) [25088]:
+  Enter the SMRT Link Services maximum memory (in MB) [25088]:
+  Enter the SMRT Link GUI initial memory (in MB) [4992]:
+  Enter the SMRT Link GUI maximum memory (in MB) [4992]:
+
+Using GUI port (configured interactively): 9090
+Using services port (configured interactively): 9091
+Using GUI initial memory (computed default, accepted): 4992
+Using GUI maximum memory (computed default, accepted): 4992
+Using services initial memory (computed default, accepted): 25088
+Using services maximum memory (computed default, accepted): 25088
+
+
+----- Part 4 of 10: SMRT View Server Setup  ----
+
+SMRT View Server requires one port (for the SMRT View GUI Webserver)
+for proper operation, these ports cannot be used for listening by
+any other processes.  Select port numbers which do not conflict
+with any other programs.
+
+  Enter the SMRT View Server (http) port [9094]:
+
+Memory settings must be preset for SMRT View.  By default, we set the
+initial (-Xms) and maximum (-Xmx) Java heap sizes to the same values.
+The default for SMRT View is 20% of the total memory with a maximum
+of 32768 MB.  We recommend using the defaults.
+
+Pick an option:
+    1) raijin3.nci.org.au
+    2) raijin3
+    3) 192.43.239.23 (vlan192)
+    4) 10.9.105.3 (ib0)
+    5) Specify an alternate DNS name
+Choice [1]: 1
+
+Using dnsname (selected interactively): raijin3.nci.org.au
+
+
+----- Part 3 of 10: SMRT Link Setup  ----
+
+SMRT Link requires two ports for proper operation. These ports cannot
+be used for listening by any other processes.  The SMRT Link GUI port
+serves to redirect from an unencrypted http connection to the login
+page using secure https.
+
+
+Pick an option:
+    1) PBS
+    2) Other JMS
+    3) None (Non-Distributed Mode)
+Choice [1]: 1
+
+Using jmstype (selected interactively): PBS
+
+Detected the following settings:
+
+   PBS_BINDIR=/opt/pbs/default/bin
+   PBS_QUEUE=     (Use PBS default queue, currently: 'normal')
+   PBS_STARTARGS=
+
+   Where detected:
+      PBS_BINDIR        (from 'PATH environment variable, default')
+      PBS_QUEUE         (from 'default')
+      PBS_STARTARGS     (from 'default')
+
+#write a module file
+
+cd ~/mymodules/
+mkdir smrtlink
+cd smrtlink/
+vim 5.1.0
+
+#paste this to make module
+#%Module1.0#####################################################################
+source /opt/Modules/extensions/extensions.tcl
+proc ModulesHelp { } {
+        puts stderr "\tAdds smrtlink bin directory to the path"
+}
+module-whatis    "smrtlink"
+
+#soft-prereq python/2.7.6
+
+#set kineticsToolsversion 1.2.1 #no version yet
+prepend-path PATH /short/sd34/ap5514/myapps/smrtlink/5.1.0/install/smrtlink-release_5.1.0.26412/bundles/smrttools/smrtcmds/bin
+#prepend-path PYTHONPATH /short/sd34/ap5514/myapps/kineticsTools/lib/python2.7/site-packages

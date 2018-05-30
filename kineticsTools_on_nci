@@ -1,0 +1,156 @@
+#install kineticsTools
+
+
+# load python modules
+module load python/2.7.6
+
+# install pbcore
+mkdir -p /short/sd34/ap5514/myapps/pbcore
+cd /short/sd34/ap5514/myapps/pbcore
+export PYTHONPATH=/short/sd34/ap5514/myapps/pbcore/lib/python2.7/site-packages
+mkdir -p $PYTHONPATH
+export PATH=/short/sd34/ap5514/myapps/pbcore/bin:$PATH
+mkdir -p $PATH
+
+#install pip for pbcore because pip isn't bundled with python versions before 2.7.9
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python get-pip.py --prefix=/short/sd34/ap5514/myapps/pbcore
+pip install requests[security] --prefix /short/sd34/ap5514/myapps/pbcore
+
+
+git clone https://github.com/PacificBiosciences/pbcore.git              # makes a weird "bin:" folder
+cd pbcore
+python -m pip install -r requirements.txt --prefix /short/sd34/ap5514/myapps/pbcore
+python setup.py install --prefix /short/sd34/ap5514/myapps/pbcore
+pip install h5py --prefix /short/sd34/ap5514/myapps/pbcore --ignore-installed
+
+
+#make pbcore module
+cd ~/mymodules/
+mkdir pbcore
+cd pbcore/
+vim 1.2.10
+
+#paste this to make module
+#%Module1.0#####################################################################
+source /opt/Modules/extensions/extensions.tcl
+proc ModulesHelp { } {
+        puts stderr "\tAdds pbcore bin directory to the path"
+}
+module-whatis    "pbcore"
+
+soft-prereq python/2.7.6
+
+#set pbcoreversion 1.2.1 #no version yet
+prepend-path PATH /short/sd34/ap5514/myapps/pbcore/
+prepend-path PYTHONPATH /short/sd34/ap5514/myapps/pbcore/lib/python2.7/site-packages
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+
+#pbcommand installation
+
+# install pbcommand
+mkdir -p /short/sd34/ap5514/myapps/pbcommand
+cd /short/sd34/ap5514/myapps/pbcommand
+export PYTHONPATH=/short/sd34/ap5514/myapps/pbcommand/lib/python2.7/site-packages
+mkdir -p $PYTHONPATH
+export PATH=/short/sd34/ap5514/myapps/pbcommand/bin:$PATH                       # makes a weird "bin:" folder
+mkdir -p $PATH
+
+#install pip for pbcommand because pip isn't bundled with python versions before 2.7.9
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python get-pip.py --prefix=/short/sd34/ap5514/myapps/pbcommand
+pip install requests[security] --prefix /short/sd34/ap5514/myapps/pbcommand
+
+
+git clone https://github.com/PacificBiosciences/pbcommand.git              
+cd pbcommand
+python -m pip install -r REQUIREMENTS.txt --prefix /short/sd34/ap5514/myapps/pbcommand
+pip install win_inet_pton --prefix /short/sd34/ap5514/myapps/pbcommand # error returned where this requirement was not installed
+
+# kept getting similar errors during kineticsTools installation to keep installing a missing dependency
+pip install Pysocks --prefix /short/sd34/ap5514/myapps/pbcommand
+pip install sphinx-rtd-theme --prefix /short/sd34/ap5514/myapps/pbcommand
+pip install sphinx --prefix /short/sd34/ap5514/myapps/pbcommand --ignore-installed
+
+pip install pretend --prefix /short/sd34/ap5514/myapps/pbcommand --ignore-installed #stopped here because the dependency was installed, but the wrong version.
+
+python setup.py install --prefix /short/sd34/ap5514/myapps/pbcommand
+
+
+#make pbcommand module
+cd ~/mymodules/
+mkdir pbcommand
+cd pbcommand/
+vim 0.2.17
+
+#paste this to make module
+#%Module1.0#####################################################################
+source /opt/Modules/extensions/extensions.tcl
+proc ModulesHelp { } {
+        puts stderr "\tAdds pbcore bin directory to the path"
+}
+module-whatis    "pbcore"
+
+soft-prereq python/2.7.6
+
+set pbcoreversion 0.2.17
+prepend-path PATH /short/sd34/ap5514/myapps/pbcommand/
+prepend-path PYTHONPATH /short/sd34/ap5514/myapps/pbcommand/lib/python2.7/site-packages
+
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+#load modules for kineticsTools
+module load pbcore
+module load pbcommand
+
+# make and call directory to install kineticsTools
+mkdir -p /short/sd34/ap5514/myapps/kineticsTools
+cd /short/sd34/ap5514/myapps/kineticsTools
+export PYTHONPATH=/short/sd34/ap5514/myapps/kineticsTools/lib/python2.7/site-packages
+mkdir -p $PYTHONPATH
+export PATH=/short/sd34/ap5514/myapps/kineticsTools/bin:$PATH
+mkdir -p $PATH
+
+#install pip for kineticsTools because pip isn't bundled with python versions before 2.7.9
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python get-pip.py --prefix=/short/sd34/ap5514/myapps/kineticsTools
+pip install requests[security] --prefix /short/sd34/ap5514/myapps/kineticsTools
+
+# Install kineticsTools
+git clone https://github.com/PacificBiosciences/kineticsTools.git
+cd kineticsTools
+python setup.py install --prefix /short/sd34/ap5514/myapps/kineticsTools
+
+# Install python requirements
+module load python/2.7.6
+python -m pip install h5py --upgrade pip --prefix /short/sd34/ap5514/myapps/kineticsTools --ignore-installed
+python -m pip install numpy --upgrade pip --prefix /short/sd34/ap5514/myapps/kineticsTools --ignore-installed
+python -m pip install scipy --upgrade pip --prefix /short/sd34/ap5514/myapps/kineticsTools --ignore-installed
+
+#make module
+cd ~/mymodules/
+mkdir kineticstools
+cd kineticstools/
+vim version
+
+#paste this to make module
+#%Module1.0#####################################################################
+source /opt/Modules/extensions/extensions.tcl
+proc ModulesHelp { } {
+        puts stderr "\tAdds kineticsTools bin directory to the path"
+}
+module-whatis    "kineticstools"
+
+soft-prereq python/2.7.6
+soft-prereq pbcore
+soft-prereq pbcommand
+
+
+#set kineticsToolsversion 1.2.1 #no version yet
+prepend-path PATH /short/sd34/ap5514/myapps/kineticsTools/
+prepend-path PYTHONPATH /short/sd34/ap5514/myapps/kineticsTools/lib/python2.7/site-packages
