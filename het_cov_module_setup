@@ -1,0 +1,28 @@
+#####make sure no compiler modules are loaded initially
+mkdir -p $short/myapps/het_cov
+cd $short/myapps/het_cov
+export PYTHONPATH=$short/myapps/het_cov/0.1/lib/python3.5/site-packages
+export PATH=$short/myapps/het_cov/0.1/bin/:$PATH
+
+#now load python3
+module load python3/3.5.2
+module load python3/3.5.2-matplotlib
+
+pip3 install --upgrade pip --prefix /short/xf3/bxs800/myapps/het_cov/0.1 --ignore-installed
+pip3 install pybedtools --prefix /short/xf3/bxs800/myapps/het_cov/0.1 --ignore-installed
+pip3 install pandas --prefix /short/xf3/bxs800/myapps/het_cov/0.1
+pip3 install seaborn --prefix /short/xf3/bxs800/myapps/het_cov/0.nn1
+
+
+
+#%Module1.0#####################################################################
+source /opt/Modules/extensions/extensions.tcl
+proc ModulesHelp { } {
+        puts stderr "\tThis sets up the het_cov environment"
+}
+module-whatis    "het_cov"
+set het_covversion 0.1
+soft-prereq python3/3.5.2
+soft-prereq python3/3.5.2-matplotlib
+prepend-path PYTHONPATH /short/xf3/bxs800/myapps/het_cov/0.1/lib/python3.5/site-packages
+prepend-path PATH /short/xf3/bxs800/myapps/het_cov/0.1/bin
