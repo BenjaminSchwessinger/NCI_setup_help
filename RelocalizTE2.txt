@@ -1,0 +1,26 @@
+echo "Installation via github"
+git clone https://github.com/JinfengChen/RelocaTE2.git
+cd RelocaTE2
+bash install.sh
+
+Need to install pysam manually
+
+module load python/2.7.15
+pip install pysam --prefix `pwd`
+export PYTHONPATH=/short/xf3/bxs800/myapps/RelocaTE2/lib/python2.7/site-packages 
+
+
+
+
+
+The module file
+#%Module1.0#####################################################################
+source /opt/Modules/extensions/extensions.tcl
+proc ModulesHelp { } {
+        puts stderr "\tThis sets up the RelocaT2 environment"
+}
+module-whatis    "RelocaT2"
+soft-prereq python/2.7.15
+set RelocaT2version v1
+prepend-path PYTHONPATH /short/xf3/bxs800/myapps/RelocaTE2/lib/python2.7/site-packages 
+prepend-path PATH /short/xf3/bxs800/myapps/RelocaTE2/bin 
